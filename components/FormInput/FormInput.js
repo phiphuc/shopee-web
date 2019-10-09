@@ -1,18 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import LogoSearch from '../Logo/LogoSearch';
 
-const FormInput = () => {
-    return (
-        <div className="header-with-search__search-section">
-        <div className="shopee-searchbar">
-            <div className="shopee-searchbar__main">
-                <form role="search" className="shopee-searchbar-input" autoComplete="off">
-                    <input className="shopee-searchbar-input__input" maxLength={128} placeholder="Điền link shop chính" autoComplete="off" defaultValue="" />
-                </form>
-            </div>
-            <button type="button" className="btn btn-solid-primary btn--s btn--inline" ><LogoSearch /></button>
-        </div>
-        <style jsx>{`
+class FormInput extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            linkShop: ''
+        }
+    }
+
+    changeInput = (e) => {
+        this.setState({
+            linkShop: e.target.value
+        })
+    }
+
+    searchShopMain = () => {
+        
+    }
+
+
+    render() {
+        const { linkShop } = this.state;
+        return (
+            <div className="header-with-search__search-section">
+                <div className="shopee-searchbar">
+                    <div className="shopee-searchbar__main">
+                        <form role="search" className="shopee-searchbar-input" autoComplete="off">
+                            <input value={linkShop} onChange={(e) => this.changeInput(e)} className="shopee-searchbar-input__input" maxLength={128} placeholder="Điền link shop chính" autoComplete="off" />
+                        </form>
+                    </div>
+                    <button onClick={() => this.searchShopMain()} type="button" className="btn btn-solid-primary btn--s btn--inline" ><LogoSearch /></button>
+                </div>
+                <style jsx>{`
             .header-with-search__search-section {
                 padding: 2em;
                 display: -webkit-box;
@@ -141,11 +162,11 @@ const FormInput = () => {
             }
 
             
-            
     `}</style>
-        </div>
+            </div>
 
-    )
+        )
+    }
 }
 
 export default FormInput
