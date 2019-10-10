@@ -1,15 +1,130 @@
 import React, { Component } from 'react'
+import LogoFollow from './../Logo/LogoFollow';
+import LogoFollowing from './../Logo/LogoFollowing';
+import LogoProduct from './../Logo/LogoProduct';
+import LogoRate from './../Logo/LogoRate';
+import LogoAddress from './../Logo/LogoAddress';
+
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form,FormGroup, Label, Input  } from 'reactstrap';
 
 export default class CardInfo extends Component {
+    constructor(props) {
+        super(props);
+        console.log(props.data)
+        this.state = {
+            data: props.data.data,
+            modal: false
+        }
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
     render() {
+        const { data } = this.state
         return (
-            <div className="card" style={{ width: '18rem' }}>
-                <img src="..." className="card-img-top" alt="..." />
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" className="btn btn-primary">Go somewhere</a>
+            <div id="card" className="card" style={{ width: '100%' }}>
+                <div className="card-header">
+                    <h3 className="text-center">Thông tin shop</h3>
                 </div>
+                <div className="card-body">
+                    <h5 className="card-title text-center">{data.name}</h5>
+                    <p className="card-text"><LogoProduct />Sản phẩm: {data.item_count}</p>
+                    <p className="card-text"><LogoFollowing />Đang theo dõi: {data.account.following_count}</p>
+                    <p className="card-text"><LogoFollow />Người theo dõi: {data.account.following_count}</p>
+                    <p className="card-text"><LogoRate />Đánh giá: {data.rating_star}</p>
+                    <p className="card-text"><LogoAddress />Địa chỉ: {data.shop_location}</p>
+                </div>
+                <div className="card-footer text-center">
+                    <button onClick={this.toggle} type="button" className="btn btn-solid-primary btn--s btn--inline">Thêm shop phụ</button>
+                </div>
+
+                <div>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>Đăng nhập</ModalHeader>
+                        <ModalBody>
+                            <Form>
+                                <FormGroup>
+                                    <Label for="exampleEmail">Email</Label>
+                                    <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                                </FormGroup>
+                            </Form>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.toggle}>Đăng nhâp</Button>{' '}
+                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
+
+
+                <style jsx>{`
+                .shopee-svg-icon {
+                    display: inline-block;
+                    width: 1em;
+                    height: 1em;
+                    fill: currentColor;
+                    position: relative;
+                }
+                .btn-solid-primary {
+                    color: #fff;
+                    background: #ee4d2d;
+                }
+    
+                .btn--s {
+                    height: 34px;
+                    padding: 0 15px;
+                    min-width: 60px;
+                    max-width: 190px;
+                }
+    
+                .btn {
+                    overflow: hidden;
+                    display: -webkit-box;
+                    text-overflow: ellipsis;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    -webkit-flex-direction: column;
+                    -moz-box-orient: vertical;
+                    -moz-box-direction: normal;
+                    -ms-flex-direction: column;
+                    flex-direction: column;
+                    font-size: 14px;
+                    -moz-box-sizing: border-box;
+                    box-sizing: border-box;
+                    box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+                    border-radius: 2px;
+                    border: 0;
+                    display: -webkit-flex;
+                    display: -moz-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-align: center;
+                    -webkit-align-items: center;
+                    -moz-box-align: center;
+                    -ms-flex-align: center;
+                    align-items: center;
+                    -webkit-box-pack: center;
+                    -webkit-justify-content: center;
+                    -moz-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                    text-transform: capitalize;
+                    outline: 0;
+                    cursor: pointer;
+
+                    width: 40%;
+                    margin-left: 30%;
+                    margin-right: 30%;
+                }
+    
+                .btn-solid-primary:active {
+                    background: #d2391b;
+                }
+                `}</style>
             </div>
         )
     }

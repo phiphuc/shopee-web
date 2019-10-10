@@ -4,25 +4,25 @@ import Layout from '../components/Layout/Layout';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import CardInfo from '../components/CardInfo/CardInfo';
-class Home extends Component{
+class Home extends Component {
   static async getInitialProps({ store, query }) {
     return {};
   }
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       data: {}
     }
   }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps() {
     this.setState({
       data: this.props.data
     })
   }
 
-  render(){
+  render() {
     const { data } = this.state;
     return (
       <div>
@@ -33,7 +33,13 @@ class Home extends Component{
         </Head>
         <Layout >
           <div className="shopee__body">
-            { _.isEmpty(data) ? '' : <CardInfo />}
+            {_.isEmpty(data) ? '' :
+              <div className="row">
+                <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12 ">
+                  <CardInfo data={data} />
+                </div>
+              </div>
+            }
           </div>
         </Layout>
         <style jsx>{`

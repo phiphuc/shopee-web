@@ -162,6 +162,10 @@ class FormInput extends Component {
                 cursor: pointer;
             }
 
+            .btn-solid-primary:active {
+                background: #d2391b;
+            }
+
             
     `}</style>
             </div>
