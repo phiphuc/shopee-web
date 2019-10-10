@@ -5,15 +5,23 @@ import LogoProduct from './../Logo/LogoProduct';
 import LogoRate from './../Logo/LogoRate';
 import LogoAddress from './../Logo/LogoAddress';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter,Form,FormGroup, Label, Input  } from 'reactstrap';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { getOtpAction } from '../../actions/index';
 
-export default class CardInfo extends Component {
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+
+class CardInfo extends Component {
     constructor(props) {
         super(props);
         console.log(props.data)
         this.state = {
             data: props.data.data,
-            modal: false
+            modal: false,
+            username: '',
+            password: '',
+            dataLogin: '',
+            otp
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -23,8 +31,30 @@ export default class CardInfo extends Component {
             modal: !prevState.modal
         }));
     }
+
+    changeValue = (e) => {
+        console.log(e.currentTarget.id)
+        this.setState({
+            username: 'username' === e.currentTarget.id ? e.target.value : this.state.username,
+            password: 'password' === e.currentTarget.id ? e.target.value : this.state.password,
+            otp: 'otp' === e.currentTarget.id ? e.target.value : this.state.otp
+        })
+
+    }
+
+    componentWillReceiveProps() {
+        this.setState({
+            dataLogin: this.props.dataLogin
+        })
+    }
+
+    componentWillUnmount() {
+        this.setState({
+            dataLogin: ''
+        })
+    }
     render() {
-        const { data } = this.state
+        const { data, username, password, dataLogin, otp } = this.state
         return (
             <div id="card" className="card" style={{ width: '100%' }}>
                 <div className="card-header">
@@ -48,14 +78,22 @@ export default class CardInfo extends Component {
                         <ModalBody>
                             <Form>
                                 <FormGroup>
-                                    <Label for="exampleEmail">Email</Label>
-                                    <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                                    {_.isEmpty(dataLogin) ?
+                                        <>
+                                            <Input value={username} onChange={(e) => this.changeValue(e)} type="text" name="username" id="username" placeholder="Số điện thoại" />
+                                            <Input value={password} onChange={(e) => this.changeValue(e)} type="password" name="password" style={{ marginTop: '1em' }} id="password" placeholder="Mật khẩu" />
+                                        </>
+                                        : <Input value={otp} onChange={(e) => this.changeValue(e)} type="text" name="otp" id="otp" placeholder="otp" />
+                                    }
+
                                 </FormGroup>
                             </Form>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.toggle}>Đăng nhâp</Button>{' '}
-                            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        {_.isEmpty(dataLogin) ?
+                            <><button type="button" onClick={() => this.props.getOtp({ phone: username, password: password })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</button></>
+                            :<><button type="button" onClick={() => this.props.getLogin({ otp: otp })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</button></>
+                        }
                         </ModalFooter>
                     </Modal>
                 </div>
@@ -124,8 +162,32 @@ export default class CardInfo extends Component {
                 .btn-solid-primary:active {
                     background: #d2391b;
                 }
+
+                #password {
+                    margin-top: 1em;
+                }
                 `}</style>
             </div>
         )
     }
 }
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getOtp: (info) => {
+            dispatch(getOtpAction(info))
+        },
+        getLogin: (info) => {
+            dispatch(getLoginAction(info))
+        }
+    }
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        dataLogin: state.dataLogin
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardInfo)
