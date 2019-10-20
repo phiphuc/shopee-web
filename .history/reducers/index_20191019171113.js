@@ -1,0 +1,23 @@
+import {INFO_SHOP, GET_OTP, RESET_LOGIN} from '../actions/index';
+export const  shopInitialState = {linkShop:'', data:{}, info:[], dataLogin: {}}
+const shopReducer = (state = shopInitialState, action) => {
+    switch (action.type) {
+        case INFO_SHOP:
+            return {...state, data: action.payload}
+        case GET_OTP:
+                if(action.payload.errorCode === 0){
+                    return{... state, dataLogin: {},  info: state.info.push(action.payload.data)}
+                }else{
+                    return{... state, dataLogin: {}}
+                }
+            return {...state, dataLogin: action.payload}
+        case RESET_LOGIN: {
+            
+        }
+        
+        default:
+            return state
+    }
+}
+
+export default shopReducer;
