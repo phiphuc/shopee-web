@@ -1,15 +1,11 @@
 import {INFO_SHOP, GET_OTP, RESET_LOGIN} from '../actions/index';
-export const  shopInitialState = {linkShop:'', data:{}, info:[], dataLogin: 2 }
+export const  shopInitialState = {linkShop:'', data:{}, info:[], dataLogin: {} }
 const shopReducer = (state = shopInitialState, action) => {
     switch (action.type) {
         case INFO_SHOP:
             return {...state, data: action.payload}
         case GET_OTP:
-                if(action.payload.errorCode === 0){
-                    return { ...state, dataLogin: 0 }
-                }else{
-                    return { ...state, dataLogin: 1 }
-                }
+                return { ...state, dataLogin: action.payload}
         default:
             return state
     }

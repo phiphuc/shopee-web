@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react';
+import _ from 'lodash';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 const Login = (props) => {
     const [state, setState] = useState({ username: null, password:null, otp:null, dataLogin: props.dataLogin, data: props.data  });
     useEffect(() => {
-        // setState({
-        //     dataLogin: props.dataLogin
-        // })
-      });
+        setState({
+            dataLogin: props.dataLogin,
+            data: props.data
+        })
+      },[props]);
       
     const changeValue = (e) => {
         setState({
@@ -29,19 +31,19 @@ const Login = (props) => {
             <ModalBody>
                 <Form>
                     <FormGroup>
-                        {(state.dataLogin == 2) ?
-                            <>
+                        { _.isEmpty(props.dataLogin) ?
+                            (<>
                                 <Input  onChange={(e) => changeValue(e)} type="text" name="username" id="username" placeholder="Số điện thoại" />
                                 <Input  onChange={(e) => changeValue(e)} type="password" name="password" style={{ marginTop: '1em' }} id="password" placeholder="Mật khẩu" />
-                            </>
-                            : <Input  onChange={(e) => changeValue(e)} type="text" name="otp" id="otp" placeholder="otp" />
+                            </>)
+                            : (<Input  onChange={(e) => changeValue(e)} type="text" name="otp" id="otp" placeholder="otp" />)
                         }
 
                     </FormGroup>
                 </Form>
             </ModalBody>
             <ModalFooter>
-                {(state.dataLogin == 2) ?
+                { props.dataLogin === 2 ?
                     <><Button type="button" onClick={() => props.getOtp({ username: state.username, password: state.password, shopId: state.data.id })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
                     : <><Button type="button" onClick={() => props.getLogin({ otp: otp })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
                 }

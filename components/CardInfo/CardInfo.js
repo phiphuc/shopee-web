@@ -67,7 +67,7 @@ class CardInfo extends Component {
                 <div className="card-footer text-center">
                     <button onClick={this.toggle} type="button" className="btn btn-solid-primary btn--s btn--inline">Thêm shop phụ</button>
                 </div>
-                <Login show={modal} data= {data} dataLogin={dataLogin} onHide={() => this.toggle()} getOtp={this.props.getOtp} getLogin={() => this.props.getLogin(param)} />
+                <Login show={modal} data= {data} dataLogin={dataLogin} onHide={() => this.toggle()} getOtp={this.props.getOtp} getLogin={this.props.getLogin} />
         
 
                 <style jsx>{`

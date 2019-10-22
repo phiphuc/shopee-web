@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import CardInfo from '../components/CardInfo/CardInfo';
 import { NotificationContainer } from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
-import 'react-notifications/lib/fonts/notification.ttf';
-import 'react-notifications/lib/fonts/notification.woff';
+// import 'react-notifications/lib/notifications.css';
+// import 'react-notifications/lib/fonts/notification.ttf';
+// import 'react-notifications/lib/fonts/notification.woff';
 import 'bootstrap/dist/css/bootstrap.css';
 class Home extends Component {
   static async getInitialProps({ store, query }) {
@@ -38,7 +38,8 @@ class Home extends Component {
         <Head>
           <title>Auto like shopee</title>
           {/* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link> */}
-          <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Rđoboto&display=swap" rel="stylesheet"></link>
+          <link href="dist/react-notifications.css" rel="stylesheet"></link>
         </Head>
         <Layout >
           <div className="shopee__body">
