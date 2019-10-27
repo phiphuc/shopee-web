@@ -24,8 +24,6 @@ const Login = (props) => {
     }
 
     return (
-        // <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-        //                 <ModalHeader toggle={this.toggle}>Đăng nhập</ModalHeader>
         <Modal isOpen={props.show} toggle={props.onHide} >
             <ModalHeader toggle={props.onHide}>Đăng nhập</ModalHeader>
             <ModalBody>
@@ -43,9 +41,9 @@ const Login = (props) => {
                 </Form>
             </ModalBody>
             <ModalFooter>
-                { props.dataLogin === 2 ?
+                {_.isEmpty(props.dataLogin) ?
                     <><Button type="button" onClick={() => props.getOtp({ username: state.username, password: state.password, shopId: state.data.id })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
-                    : <><Button type="button" onClick={() => props.getLogin({ otp: otp })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
+                    : <><Button type="button" onClick={() => props.getLogin({ otp: state.otp, id: state.dataLogin.data.id,token: state.dataLogin.data.token, username: state.dataLogin.data.username  })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
                 }
             </ModalFooter>
         </Modal>

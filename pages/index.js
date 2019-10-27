@@ -21,7 +21,9 @@ class Home extends Component {
       login: false
     }
   }
-
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({

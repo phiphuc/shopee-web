@@ -7,7 +7,7 @@ import LogoAddress from './../Logo/LogoAddress';
 import Login from '../Popup/Login';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { getOtpAction } from '../../actions/index';
+import { getOtpAction, getLoginAction } from '../../actions/index';
 
 class CardInfo extends Component {
     constructor(props) {
