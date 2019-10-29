@@ -25,6 +25,12 @@ class CardInfo extends Component {
     }
 
     toggle() {
+        if(this.state.modal){
+            this.setState({
+                dataLogin: {},
+                otp:''  
+            })
+        }
         this.setState(
             {modal: !this.state.modal}
         );

@@ -7,7 +7,7 @@ const shopReducer = (state = shopInitialState, action) => {
         case GET_OTP:
             return { ...state, dataLogin: action.payload }
         case GET_LOGIN:
-            return { ...state, dataLogin: action.payload }
+            return { ...state, info: state.info.push(action.payload)}
         default:
             return state
     }
