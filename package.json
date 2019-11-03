@@ -18,6 +18,7 @@
     "next-fonts": "^0.19.0",
     "next-redux-wrapper": "^4.0.1",
     "react": "16.10.2",
+    "react-clock": "^2.4.0",
     "react-dom": "16.10.2",
     "react-modal": "^3.10.1",
     "react-notifications": "^1.4.3",

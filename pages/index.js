@@ -9,6 +9,7 @@ import { NotificationContainer } from 'react-notifications';
 // import 'react-notifications/lib/fonts/notification.ttf';
 // import 'react-notifications/lib/fonts/notification.woff';
 import 'bootstrap/dist/css/bootstrap.css';
+import ListSubAcc from '../components/ListSubAcc/ListSubAcc';
 class Home extends Component {
   static async getInitialProps({ store, query }) {
     return {};
@@ -18,7 +19,8 @@ class Home extends Component {
     super(props)
     this.state = {
       data: {},
-      login: false
+      login: false,
+      info: {}
     }
   }
   componentDidMount() {
@@ -28,13 +30,14 @@ class Home extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       data: nextProps.data,
-      login: nextProps.login
+      login: nextProps.login,
+      info: nextProps.info
     })
 
   }
 
   render() {
-    const { data, login } = this.state;
+    const { data, login, info } = this.state;
     return (
       <div>
         <Head>
@@ -46,11 +49,20 @@ class Home extends Component {
         <Layout >
           <div className="shopee__body">
             {_.isEmpty(data) ? '' :
+            <>
               <div className="row">
                 <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12 ">
                   <CardInfo data={data} login = {login} />
                 </div>
               </div>
+              {_.isEmpty(info)? '' :(
+                <div className="row">
+                  <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12 ">
+                  <ListSubAcc info={info} />
+                  </div>
+                </div>
+              )}
+              </>
             }
           </div>
           <NotificationContainer/>
@@ -84,7 +96,8 @@ class Home extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     data: state.data,
-    login: state.dataLogin
+    login: state.dataLogin,
+    info: state.info
   }
 }
 

@@ -75,7 +75,6 @@ class CardInfo extends Component {
                 </div>
                 <Login show={modal} data= {data} dataLogin={dataLogin} onHide={() => this.toggle()} getOtp={this.props.getOtp} getLogin={this.props.getLogin} />
         
-
                 <style jsx>{`
                 .shopee-svg-icon {
                     display: inline-block;

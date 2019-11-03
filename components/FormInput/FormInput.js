@@ -175,7 +175,16 @@ class FormInput extends Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-        searchShopMain: (linkShop) => dispatch(getMainInfoShop(linkShop))
+        searchShopMain: (linkShop) => {
+            if(linkShop.includes("https://shopee.vn/")){
+                linkShop =  linkShop.split("https://shopee.vn/")[1];
+            }else if(linkShop.includes("shopee.vn/")){
+                linkShop =  linkShop.split("shopee.vn/")[1];
+            }else if(linkShop.includes("http://shopee.vn/")){
+                linkShop =  linkShop.split("http://shopee.vn/")[1];
+            }
+            return dispatch(getMainInfoShop(linkShop))
+        }
         
 })
 
