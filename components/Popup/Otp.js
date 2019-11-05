@@ -7,7 +7,8 @@ const Login = (props) => {
     const [state, setState] = useState({ username: null, password:null, otp:null, dataLogin: props.dataLogin, data: props.data  });
     useEffect(() => {
         setState({
-            dataLogin: props.dataLogin
+            dataLogin: props.dataLogin,
+            data: props.data
         })
       },[props]);
       
@@ -28,12 +29,14 @@ const Login = (props) => {
             <ModalBody>
                 <Form>
                     <FormGroup>
-                    <Input  onChange={(e) => changeValue(e)} type="text" name="otp" id="otp" placeholder="otp" />
+                                <Input  onChange={(e) => changeValue(e)} type="text" name="username" id="username" placeholder="Số điện thoại" />
+                                <Input  onChange={(e) => changeValue(e)} type="password" name="password" style={{ marginTop: '1em' }} id="password" placeholder="Mật khẩu" />
+
                     </FormGroup>
                 </Form>
             </ModalBody>
             <ModalFooter>
- <><Button type="button" onClick={() => props.getLogin({ otp: state.otp, id: state.dataLogin.data.id,token: state.dataLogin.data.token, username: state.dataLogin.data.username  })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
+                    <><Button type="button" onClick={() => props.getOtp({ username: state.username, password: state.password, shopId: state.data.id })} className="btn btn-solid-primary btn--s btn--inline" >Đăng nhập</Button></>
             </ModalFooter>
         </Modal>
     )

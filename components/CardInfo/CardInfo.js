@@ -5,6 +5,7 @@ import LogoProduct from './../Logo/LogoProduct';
 import LogoRate from './../Logo/LogoRate';
 import LogoAddress from './../Logo/LogoAddress';
 import Login from '../Popup/Login';
+import Otp from '../Popup/Otp';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { getOtpAction, getLoginAction } from '../../actions/index';
@@ -16,12 +17,14 @@ class CardInfo extends Component {
         this.state = {
             data: props.data,
             modal: false,
+            modalOtp:false,
             username: '',
             password: '',
             dataLogin: props.login,
             otp:''
         }
         this.toggle = this.toggle.bind(this);
+        this.toggleOtp = this.toggleOtp.bind(this);
     }
 
     toggle() {
@@ -32,7 +35,22 @@ class CardInfo extends Component {
             })
         }
         this.setState(
-            {modal: !this.state.modal}
+            {
+                modal: !this.state.modal,
+                modalOtp: !this.state.modalOtp
+            }
+        );
+    }
+
+    toggleOtp() {
+        if(this.state.modalOtp){
+            this.setState({
+                dataLogin: {},
+                otp:''  
+            })
+        }
+        this.setState(
+            {modalOtp: !this.state.modalOtp}
         );
     }
 
@@ -50,13 +68,14 @@ class CardInfo extends Component {
         this.setState({
             dataLogin: nextProps.login,
             data: nextProps.data,
-             modal: !(nextProps.login === 1)
+            modal: !(nextProps.login === 1),
+            modalOtp: (nextProps.login === 1)
         })
 
     }
 
     render() {
-        const { data, username, password, dataLogin, otp, modal } = this.state
+        const { data, username, password, dataLogin, otp, modal, modalOtp } = this.state
         return (
             <div id="card" className="card" style={{ width: '100%' }}>
                 <div className="card-header">
@@ -71,9 +90,10 @@ class CardInfo extends Component {
                     <p className="card-text"><LogoAddress />Địa chỉ: {data.address}</p>
                 </div>
                 <div className="card-footer text-center">
-                    <button onClick={this.toggle} type="button" className="btn btn-solid-primary btn--s btn--inline">Thêm shop phụ</button>
+                    <button onClick={this.toggleOtp} type="button" className="btn btn-solid-primary btn--s btn--inline">Thêm shop phụ</button>
                 </div>
-                <Login show={modal} data= {data} dataLogin={dataLogin} onHide={() => this.toggle()} getOtp={this.props.getOtp} getLogin={this.props.getLogin} />
+                <Otp show={modalOtp} data= {data} dataLogin={dataLogin} onHide={() => this.toggleOtp()} getOtp={this.props.getOtp} />
+                <Login show={modal} data= {data} dataLogin={dataLogin} onHide={() => this.toggle()} getLogin={this.props.getLogin} />
         
                 <style jsx>{`
                 .shopee-svg-icon {

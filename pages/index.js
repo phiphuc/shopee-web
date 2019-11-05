@@ -33,8 +33,12 @@ class Home extends Component {
       login: nextProps.login,
       info: nextProps.info
     })
-
   }
+
+  componentWillUpdate(nextProps, nextState) { 
+     console.log(nextProps);
+     console.log(nextState);
+  } 
 
   render() {
     const { data, login, info } = this.state;
