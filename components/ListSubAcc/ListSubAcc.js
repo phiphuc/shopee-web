@@ -31,7 +31,7 @@ class ListSubAcc extends Component{
                     </ul>
                 </div>
 
-                <p>Current time:</p>
+                <p>Current time:  </p>
         {/* <Clock
           value={this.state.date}
         /> */}

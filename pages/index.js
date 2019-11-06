@@ -15,30 +15,27 @@ class Home extends Component {
     return {};
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: {},
-      login: false,
-      info: {}
-    }
+  state = {
+    data: {},
+    login: false,
+    info: []
   }
+
   componentDidMount() {
     window.scrollTo(0, 0)
   }
-  
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({
-      data: nextProps.data,
-      login: nextProps.login,
-      info: nextProps.info
-    })
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.data !== state.data ||props.login !== state.login || props.info !== state.info) {
+      return {
+        data: props.data,
+        login: props.login,
+        info: props.info
+      };
+    }
+    
   }
 
-  componentWillUpdate(nextProps, nextState) { 
-     console.log(nextProps);
-     console.log(nextState);
-  } 
 
   render() {
     const { data, login, info } = this.state;
@@ -53,23 +50,23 @@ class Home extends Component {
         <Layout >
           <div className="shopee__body">
             {_.isEmpty(data) ? '' :
-            <>
-              <div className="row">
-                <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12 ">
-                  <CardInfo data={data} login = {login} />
-                </div>
-              </div>
-              {_.isEmpty(info)? '' :(
+              <>
                 <div className="row">
                   <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12 ">
-                  <ListSubAcc info={info} />
+                    <CardInfo data={data} login={login} info={info} />
                   </div>
                 </div>
-              )}
+                {_.isEmpty(info) ? '' : (
+                  <div className="row">
+                    <div className="col-md-4 offset-md-4 col-sm-6 offset-sm-3 col-xs-12 ">
+                      <ListSubAcc info={info} />
+                    </div>
+                  </div>
+                )}
               </>
             }
           </div>
-          <NotificationContainer/>
+          <NotificationContainer />
         </Layout>
         <style jsx>{`
           .shopee-main {

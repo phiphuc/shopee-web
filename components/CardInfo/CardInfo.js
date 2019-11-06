@@ -21,6 +21,7 @@ class CardInfo extends Component {
             username: '',
             password: '',
             dataLogin: props.login,
+            info:props.info,
             otp:''
         }
         this.toggle = this.toggle.bind(this);
